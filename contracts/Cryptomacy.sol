@@ -39,6 +39,7 @@ contract Cryptomacy is Ownable {
     positionToCryptomat[getPositionHash(_positionX, _positionY)] = id;
 
     emit NewCryptomat(id, _name, _positionX, _positionY);
+    emit CryptomatMovesToPosition(id, _positionX, _positionY);
 
     return (id, _name, _positionX, _positionY);
   }
