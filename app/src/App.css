@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+
+.agent {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(./assets/img/monkey-sprite.png);
+}
+
+.floor.selected {
+  border: 2px solid #eba947;
+  z-index: 999;
+}
+
+.floor {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #665235;
+  background: #836b32;
+}
+
+.floor:hover {
+  cursor: pointer;
+  border: 2px solid #eba947;
+  z-index: 999;
+}

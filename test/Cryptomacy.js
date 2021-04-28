@@ -24,16 +24,16 @@ contract("Cryptomacy", (accounts) => {
   context("with the creation scenario", async () => {
 
     it("should be able to create new cryptomat", async () => {
-      const result = await contractInstance.createCryptomatAtRandomPosition(cryptomatNames[0], {from: alice});
+      const result = await contractInstance.createCryptomatAtPosition(cryptomatNames[0], 0, 0, {from: alice});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.name, cryptomatNames[0]);
     })
     it("should be able to create a cryptomat per player", async () => {
-      const result = await contractInstance.createCryptomatAtRandomPosition(cryptomatNames[0], {from: alice});
+      const result = await contractInstance.createCryptomatAtPosition(cryptomatNames[0], 0, 0, {from: alice});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.name, cryptomatNames[0]);
 
-      const result2 = await contractInstance.createCryptomatAtRandomPosition(cryptomatNames[1], {from: bob});
+      const result2 = await contractInstance.createCryptomatAtPosition(cryptomatNames[1], 0, 1, {from: bob});
       assert.equal(result2.receipt.status, true);
       assert.equal(result2.logs[0].args.name, cryptomatNames[1]);
     })
