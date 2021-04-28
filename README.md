@@ -31,25 +31,3 @@ Once it is finished, you can run:
 npm start
 ```
 To start the web app on localhost:3000
-## React
-In the project directory, run the commands:
-```
- npm install
- npm start
-```
-## Solidity
-In the app directory run:
-```
- npm install
- npm start
-```
-to start the development blockchain.
-Once the truffle console starts you can run:
-```
- migrate
-```
-to publish the smart contracts.
-To test run:
-```
- test
-```
