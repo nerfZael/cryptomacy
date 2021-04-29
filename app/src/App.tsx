@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import * as dotenv from 'dotenv';
 import SimpleGameArea from './components/simple-game-area/SimpleGameArea';
 import { GameController } from './GameController';
+
+dotenv.config();
 
 const game = new GameController();
 
