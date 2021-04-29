@@ -26,7 +26,9 @@ Before starting the React app, go into the "app" directory and run:
 npm install
 ```
 to install the node dependencies.
-Once it is finished, you can run:
+Then create an `app/.env` file from `app/.env.template` and modify all required values.
+
+Then you can run:
 ```
 npm start
 ```
