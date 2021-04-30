@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import * as dotenv from 'dotenv';
 import HexagonTestPage from './components/hexagon-test-page/HexagonTestPage';
 import GamePage from './components/game-page/GamePage';
+
+dotenv.config();
 
 export default () => {
   return (

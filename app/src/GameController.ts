@@ -3,7 +3,7 @@ import Web3 from "web3"
 import { abi } from './contracts/Cryptomacy.json';
 import web3 from 'web3';
 
-const cryptomacyContractAddress = '0x303761AbE144ef47A19cCB436fb88eF3C09CfF8D';
+const cryptomacyContractAddress = process.env.REACT_APP_CRYPTOMACY_CONTRACT_ADDRESS;
 
 export class GameController {
   web3: any;
