@@ -1,0 +1,63 @@
+.HexagonTestPage {
+  @import url("https://fonts.googleapis.com/css?family=Roboto");
+
+  @mixin hexagon($size, $gutter, $color) {
+    position: relative;
+    width: $size;
+    height: ($size * 0.577);
+    background-color: $color;
+    margin: ($size * 0.288) 0;
+    margin-right: $gutter;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1);
+    transition: all 0.25s ease-in-out;
+    &:hover {
+      transform: scale(0.75);
+    }
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      left: 0;
+      border-left: ($size/2) solid transparent;
+      border-right: ($size/2) solid transparent;
+    }
+
+    &:before {
+      bottom: 100%;
+      border-bottom: ($size * 0.288) solid $color;
+    }
+
+    &:after {
+      top: 100%;
+      width: 0;
+      border-top: ($size * 0.288) solid $color;
+    }
+  }
+
+  $size: 5rem;
+  $gutter: 0.25rem;
+
+  background: #323232;
+  font-family: "Roboto", sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  .hex-container {
+    padding: 10rem;
+  }
+  .hex-row {
+    margin-top: calc(((#{$size} * 0.288) * -1 + #{$gutter}));
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hexagon {
+    @include hexagon($size, $gutter, cyan);
+  }
+
+}
