@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './App.scss';
 import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as dotenv from 'dotenv';
 import HexagonTestPage from './components/hexagon-test-page/HexagonTestPage';

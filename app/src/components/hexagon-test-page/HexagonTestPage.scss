@@ -1,5 +1,8 @@
 .HexagonTestPage {
-  @import url("https://fonts.googleapis.com/css?family=Roboto");
+  height: 100%;
+  background: #323232;
+  font-size: 2rem;
+  font-weight: bold;
 
   @mixin hexagon($size, $gutter, $color) {
     position: relative;
@@ -41,10 +44,6 @@
   $size: 5rem;
   $gutter: 0.25rem;
 
-  background: #323232;
-  font-family: "Roboto", sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
   .hex-container {
     padding: 10rem;
   }
@@ -58,6 +57,6 @@
 
   .hexagon {
     @include hexagon($size, $gutter, cyan);
+    cursor: pointer;
   }
-
 }
