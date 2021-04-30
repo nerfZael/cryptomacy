@@ -31,3 +31,7 @@ Once it is finished, you can run:
 npm start
 ```
 To start the web app on localhost:3000
+
+## Hexagons
+
+To learn more about hexagons, check out this blog post [http://www.redblobgames.com/grids/hexagons](http://www.redblobgames.com/grids/hexagons).
