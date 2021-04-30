@@ -3,8 +3,12 @@ import './HexagonTestPage.scss';
 
 export default () => {
 
+  const wheel = e => {
+    console.log(e);
+  };
+
   return (
-    <div className="HexagonTestPage">
+    <div className="HexagonTestPage" onWheel = {(e) => wheel(e)}>
       <div className="hex-container">
         <div className="hex-row">
           <div className="hexagon">A</div>
