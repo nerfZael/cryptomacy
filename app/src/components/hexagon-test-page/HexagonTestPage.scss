@@ -3,6 +3,7 @@
   background: #323232;
   font-size: 2rem;
   font-weight: bold;
+  padding-top: 2rem;
 
   @mixin hexagon($size, $gutter, $color) {
     position: relative;
@@ -58,5 +59,10 @@
   .hexagon {
     @include hexagon($size, $gutter, cyan);
     cursor: pointer;
+
+  }
+
+  .view-coords {
+    color: white;
   }
 }

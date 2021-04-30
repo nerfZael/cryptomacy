@@ -1,21 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
-import "./Ownable.sol";
-import "./SafeMath.sol";
+contract Cryptomacy {
 
-contract Cryptomacy is Ownable {
-  using SafeMath for uint256;
-
-  event NewCryptomat(uint cryptomatId, string name, uint positionX, uint positionY);
-  event CryptomatMovesToPosition(uint cryptomatId, uint positionX, uint positionY);
+  event NewCryptomat(uint cryptomatId, string name, int positionX, int positionY);
+  event CryptomatMovesToPosition(uint cryptomatId, int positionX, int positionY);
 
   uint public worldSize = 10;
 
   struct Cryptomat {
     string name;
-    uint positionX;
-    uint positionY;
+    int positionX;
+    int positionY;
   }
 
   //Cryptomat id's start from 1 so we can get the index with: id - 1
@@ -26,16 +22,20 @@ contract Cryptomacy is Ownable {
   //The key is the hash of positionX and positionY
   mapping (uint => uint) positionToCryptomat;
 
-  function createCryptomatAtPosition(string memory _name, uint _positionX, uint _positionY) public 
+  function createCryptomatAtPosition(string memory _name, int _positionX, int _positionY) public 
     positionInsideBounds(_positionX, _positionY) 
-    returns(uint, string memory, uint, uint) {
+    returns(uint cryptomatId, string memory name, int positionX, int positionY) {
     
     require(positionToCryptomat[getPositionHash(_positionX, _positionY)] == 0, "The position is taken.");
-    
-    uint id = cryptomats.push(Cryptomat(_name, _positionX, _positionY));
+  
+    cryptomats.push(Cryptomat(_name, _positionX, _positionY));
    
+    uint id = cryptomats.length;
+  
     cryptomatToOwner[id - 1] = msg.sender;
-    ownerCryptomatCount[msg.sender] = ownerCryptomatCount[msg.sender].add(1);
+    
+    ownerCryptomatCount[msg.sender] = ownerCryptomatCount[msg.sender] + 1;
+
     positionToCryptomat[getPositionHash(_positionX, _positionY)] = id;
 
     emit NewCryptomat(id, _name, _positionX, _positionY);
@@ -44,15 +44,15 @@ contract Cryptomacy is Ownable {
     return (id, _name, _positionX, _positionY);
   }
 
-  function moveCryptomat(uint _cryptomatId, uint _positionX, uint _positionY) public 
+  function moveCryptomat(uint _cryptomatId, int _positionX, int _positionY) public 
     ownCryptomat(_cryptomatId) positionInsideBounds(_positionX, _positionY) 
-    returns(uint, uint, uint) {
+    returns(uint cryptomatId, int positionX, int positionY) {
     
     require(positionToCryptomat[getPositionHash(_positionX, _positionY)] == 0, "The position is taken.");
 
     Cryptomat storage cryptomat = cryptomats[_cryptomatId - 1];
 
-    require(arePositionsOneBlockApart(cryptomat.positionX, cryptomat.positionY, _positionX, _positionY), "The position is too far away.");
+    require(arePositionsNeighbors(cryptomat.positionX, cryptomat.positionY, _positionX, _positionY), "The position is too far away.");
 
     delete positionToCryptomat[getPositionHash(cryptomat.positionX, cryptomat.positionY)];
 
@@ -66,25 +66,36 @@ contract Cryptomacy is Ownable {
     return (_cryptomatId, _positionX, _positionY);
   }
 
-  function arePositionsOneBlockApart(uint _positionX1, uint _positionY1, uint _positionX2, uint _positionY2) internal pure returns(bool) {
-    return (int(_positionX2) - int(_positionX1) == 1 && _positionY2 == _positionY1) ||
-      (int(_positionX2) - int(_positionX1) == -1 && _positionY2 == _positionY1) ||
-      (int(_positionY2) - int(_positionY1) == 1 && _positionX2 == _positionX1) ||
-      (int(_positionY2) - int(_positionY1) == -1 && _positionX2 == _positionX1);
+  function arePositionsNeighbors(int _positionX1, int _positionY1, int _positionX2, int _positionY2) internal pure returns(bool) {
+    if(_positionY1 % 2 == 0) {
+      return _positionX1 + 1 == _positionX2 && _positionY1 == _positionY2 ||
+        _positionX1 -1 == _positionX2 && _positionY1 == _positionY2 ||
+        _positionX1 == _positionX2 && _positionY1 + 1 == _positionY2 ||
+        _positionX1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
+        _positionX1 - 1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
+        _positionX1 - 1 == _positionX2 && _positionY1 + 1 == _positionY2;
+    } else {
+      return _positionX1 + 1 == _positionX2 && _positionY1 == _positionY2 ||
+        _positionX1 -1 == _positionX2 && _positionY1 == _positionY2 ||
+        _positionX1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
+        _positionX1 == _positionX2 && _positionY1 + 1 == _positionY2 ||
+        _positionX1 + 1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
+        _positionX1 + 1 == _positionX2 && _positionY1 + 1 == _positionY2;
+    }
   }
 
-  function getPositionHash(uint _positionX, uint _positionY) internal pure returns(uint) {
+  function getPositionHash(int _positionX, int _positionY) internal pure returns(uint) {
     return uint(keccak256(abi.encodePacked(_positionX, _positionY)));
   }
 
-  modifier positionInsideBounds(uint _positionX, uint _positionY) {
-    require(isPositionOutsideBounds(_positionX, _positionY), "The position is out of bounds.");
+  modifier positionInsideBounds(int _positionX, int _positionY) {
+    require(isPositionOutsideBounds(worldSize, _positionX, _positionY), "The position is out of bounds.");
     _;
   }
 
-  function isPositionOutsideBounds(uint _positionX, uint _positionY) internal view returns(bool) {
-    return 0 <= _positionX && _positionX < worldSize &&
-           0 <= _positionY && _positionY < worldSize;
+  function isPositionOutsideBounds(uint _worldSize, int _positionX, int _positionY) internal pure returns(bool) {
+    return 0 <= _positionX && _positionX < int(_worldSize) &&
+           0 <= _positionY && _positionY < int(_worldSize);
   }
 
   modifier ownCryptomat(uint _cryptomatId) {

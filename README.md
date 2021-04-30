@@ -37,3 +37,5 @@ To start the web app on localhost:3000
 ## Hexagons
 
 To learn more about hexagons, check out this blog post [http://www.redblobgames.com/grids/hexagons](http://www.redblobgames.com/grids/hexagons).
+
+At this moment Cryptomacy is using the offset coordinate system with the odd right (odd-r) horizontal layout.
