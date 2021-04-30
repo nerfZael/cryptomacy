@@ -108,27 +108,37 @@ contract("Cryptomacy", (accounts) => {
 
   context("with the movement scenario", async () => {
 
-    multipleCases(x => `should be able to move a cryptomat in four directions(${x.name})`,
+    multipleCases(x => `should be able to move a cryptomat in six directions(${x.name})`,
     [
-      {
-        x: 1,
-        y: 0,
-        name: "up"
-      },
       {
         x: 2,
         y: 1,
         name: "right"
       },
       {
-        x: 1,
-        y: 2,
-        name: "down"
-      },
-      {
         x: 0,
         y: 1,
         name: "left"
+      },
+      {
+        x: 2,
+        y: 1,
+        name: "up right"
+      },
+      {
+        x: 1,
+        y: 0,
+        name: "up left"
+      },
+      {
+        x: 2,
+        y: 2,
+        name: "down right"
+      },
+      {
+        x: 1,
+        y: 2,
+        name: "down left"
       }
     ],
     async targetPosition => {
@@ -148,43 +158,6 @@ contract("Cryptomacy", (accounts) => {
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.positionX, targetPosition.x);
       assert.equal(result.logs[0].args.positionY, targetPosition.y);
-    });
-
-    multipleCases(x => `should not be able to move a cryptomat in other directions(${x.name})`,
-    [
-      {
-        x: 0,
-        y: 0,
-        name: "up left"
-      },
-      {
-        x: 2,
-        y: 0,
-        name: "up right"
-      },
-      {
-        x: 0,
-        y: 2,
-        name: "down left"
-      },
-      {
-        x: 2,
-        y: 2,
-        name: "down right"
-      }
-    ],
-    async targetPosition => {
-      const initialPos = {
-        x: 1,
-        y: 1
-      };
-
-      const result = await contractInstance.createCryptomatAtPosition(cryptomatNames[0], initialPos.x, initialPos.y, {from: alice});
-      let cryptomatId = result.logs[0].args.cryptomatId;
-
-      const promise = contractInstance.moveCryptomat(cryptomatId, targetPosition.x, targetPosition.y, {from: alice});
-
-      await utils.shouldThrow(promise);
     });
 
     multipleCases(x => `should not be able to move a cryptomat more than one block in any direction(${x.name})`,
@@ -243,7 +216,7 @@ contract("Cryptomacy", (accounts) => {
           ]
       },
       {
-        name: 'up',
+        name: 'up right',
         positions: [
             {
               x: 0,
@@ -251,6 +224,19 @@ contract("Cryptomacy", (accounts) => {
             },
             {
               x: 0,
+              y: -1
+            }
+          ]
+      },
+      {
+        name: 'up left',
+        positions: [
+            {
+              x: 0,
+              y: 0
+            },
+            {
+              x: -1,
               y: -1
             }
           ]
@@ -269,7 +255,7 @@ contract("Cryptomacy", (accounts) => {
           ]
       },
       {
-        name: 'down',
+        name: 'down right',
         positions: [
             {
               x: 0,
@@ -281,6 +267,19 @@ contract("Cryptomacy", (accounts) => {
             }
           ]
       },
+      {
+        name: 'down left',
+        positions: [
+            {
+              x: 1,
+              y: worldSize-1
+            },
+            {
+              x: 0,
+              y: worldSize
+            }
+          ]
+      }
     ],
     async data => {
       const [startPos, targetPos] = data.positions;
