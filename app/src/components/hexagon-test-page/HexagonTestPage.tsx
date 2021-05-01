@@ -57,12 +57,12 @@ export default () => {
 
                       if(realX === agentX && realY === agentY) {
                         return (
-                          <div className="hexagon agent">
+                          <div key={`${realX},${realY}`} className="hexagon agent">
                           </div>
                         );
                       }
                       return (
-                        <div className="hexagon">
+                        <div key={`${realX},${realY}`} className="hexagon">
                           {realX},{realY}
                         </div>
                       );
