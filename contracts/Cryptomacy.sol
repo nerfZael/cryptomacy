@@ -66,21 +66,22 @@ contract Cryptomacy {
     return (_cryptomatId, _positionX, _positionY);
   }
 
+  //even-r layout
   function arePositionsNeighbors(int _positionX1, int _positionY1, int _positionX2, int _positionY2) internal pure returns(bool) {
     if(_positionY1 % 2 == 0) {
-      return _positionX1 + 1 == _positionX2 && _positionY1 == _positionY2 ||
-        _positionX1 -1 == _positionX2 && _positionY1 == _positionY2 ||
-        _positionX1 == _positionX2 && _positionY1 + 1 == _positionY2 ||
-        _positionX1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
-        _positionX1 - 1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
-        _positionX1 - 1 == _positionX2 && _positionY1 + 1 == _positionY2;
+      return _positionX1 + 1 == _positionX2 && _positionY1 - 1 == _positionY2 || //up right
+        _positionX1 + 1 == _positionX2 && _positionY1 == _positionY2 || //right
+        _positionX1 + 1 == _positionX2 && _positionY1 + 1 == _positionY2 || //down right
+        _positionX1 == _positionX2 && _positionY1 + 1 == _positionY2 || //down left
+        _positionX1 - 1 == _positionX2 && _positionY1 == _positionY2 || //left
+        _positionX1 == _positionX2 && _positionY1 - 1 == _positionY2; //up left
     } else {
-      return _positionX1 + 1 == _positionX2 && _positionY1 == _positionY2 ||
-        _positionX1 -1 == _positionX2 && _positionY1 == _positionY2 ||
-        _positionX1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
-        _positionX1 == _positionX2 && _positionY1 + 1 == _positionY2 ||
-        _positionX1 + 1 == _positionX2 && _positionY1 - 1 == _positionY2 ||
-        _positionX1 + 1 == _positionX2 && _positionY1 + 1 == _positionY2;
+      return _positionX1 == _positionX2 && _positionY1 - 1 == _positionY2 || //up right
+        _positionX1 + 1 == _positionX2 && _positionY1 == _positionY2 || //right
+        _positionX1 == _positionX2 && _positionY1 + 1 == _positionY2 || //down right
+        _positionX1 - 1 == _positionX2 && _positionY1 + 1 == _positionY2 ||  //down left
+        _positionX1 - 1 == _positionX2 && _positionY1 == _positionY2 || //left
+        _positionX1 - 1 == _positionX2 && _positionY1 - 1 == _positionY2; //up left
     }
   }
 

@@ -1,11 +1,11 @@
-.HexagonTestPage {
+.GameTestPage {
   height: 100%;
   background: #323232;
   font-size: 2rem;
   font-weight: bold;
   padding-top: 2rem;
 
-  @mixin hexagon($size, $gutter, $color) {
+  @mixin hexagon($size, $gutter, $color, $selectedColor) {
     position: relative;
     width: $size;
     height: ($size * 0.577);
@@ -30,6 +30,19 @@
       border-right: ($size/2) solid transparent;
     }
 
+    &.selected {
+      background-color: $selectedColor;
+
+      &:before {
+        border-bottom: ($size * 0.288) solid $selectedColor;
+      }
+  
+      &:after {
+        border-top: ($size * 0.288) solid $selectedColor;
+      }
+    
+    }
+
     &:before {
       bottom: 100%;
       border-bottom: ($size * 0.288) solid $color;
@@ -45,6 +58,10 @@
   $size: 5rem;
   $gutter: 0.25rem;
 
+  .hex-container {
+    margin-top: 2rem;
+  }
+
   .hex-row {
     margin-top: calc(((#{$size} * 0.288) * -1 + #{$gutter}));
     display: flex;
@@ -54,7 +71,7 @@
   }
 
   .hexagon {
-    @include hexagon($size, $gutter, cyan);
+    @include hexagon($size, $gutter, cyan, #000000);
     cursor: pointer;
 
   }
