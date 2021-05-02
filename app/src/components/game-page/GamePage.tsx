@@ -73,7 +73,7 @@ export default () => {
   };
 
   return (
-    <div className="">
+    <div className="GamePage">
       
       {userAccount ? 'MetaMask connected' : 'MetaMask not connected'}
 
