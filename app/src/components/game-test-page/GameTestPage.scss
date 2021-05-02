@@ -1,8 +1,7 @@
 .GameTestPage {
   height: 100%;
   background: #323232;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 1.5rem;
   padding-top: 2rem;
 
   @mixin hexagon($size, $gutter, $color, $selectedColor) {
