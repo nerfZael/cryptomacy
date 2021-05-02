@@ -1,11 +1,13 @@
 .HexagonTestPage {
   height: 100%;
-  background: #323232;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 2rem;
 
-  @mixin hexagon($size, $gutter, $color) {
+  @mixin hexagon($size, $gutter, $color, $selectedColor) {
     position: relative;
     width: $size;
     height: ($size * 0.577);
@@ -30,6 +32,19 @@
       border-right: ($size/2) solid transparent;
     }
 
+    &.selected {
+      background-color: $selectedColor;
+
+      &:before {
+        border-bottom: ($size * 0.288) solid $selectedColor;
+      }
+  
+      &:after {
+        border-top: ($size * 0.288) solid $selectedColor;
+      }
+    
+    }
+
     &:before {
       bottom: 100%;
       border-bottom: ($size * 0.288) solid $color;
@@ -45,6 +60,11 @@
   $size: 5rem;
   $gutter: 0.25rem;
 
+  .hex-container {
+    margin-top: 2rem;
+    color: black;
+  }
+
   .hex-row {
     margin-top: calc(((#{$size} * 0.288) * -1 + #{$gutter}));
     display: flex;
@@ -54,12 +74,19 @@
   }
 
   .hexagon {
-    @include hexagon($size, $gutter, cyan);
+    @include hexagon($size, $gutter, cyan, #000000);
     cursor: pointer;
 
   }
 
   .view-coords {
     color: white;
+  }
+
+  .agent {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../game-page/assets/img/monkey-sprite.png);
   }
 }

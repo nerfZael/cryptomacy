@@ -1,66 +1,34 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.GamePage {
+  padding-top: 2rem;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .agent {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(./assets/img/monkey-sprite.png);
   }
-  to {
-    transform: rotate(360deg);
+
+  .floor.selected {
+    border: 2px solid #eba947;
+    z-index: 999;
   }
-}
 
+  .floor {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #665235;
+    background: #836b32;
+  }
 
-.agent {
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url(./assets/img/monkey-sprite.png);
-}
-
-.floor.selected {
-  border: 2px solid #eba947;
-  z-index: 999;
-}
-
-.floor {
-  width: 100%;
-  height: 100%;
-  border: 1px solid #665235;
-  background: #836b32;
-}
-
-.floor:hover {
-  cursor: pointer;
-  border: 2px solid #eba947;
-  z-index: 999;
+  .floor:hover {
+    cursor: pointer;
+    border: 2px solid #eba947;
+    z-index: 999;
+  }
 }
