@@ -12,7 +12,8 @@ jobs:
           name: Install dependencies
           command: |
             npm install
-            cd app && npm install
+            cd app
+            npm install
       - run:
           name: Build
           command: |
