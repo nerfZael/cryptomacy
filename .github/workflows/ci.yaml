@@ -1,4 +1,4 @@
-name: JS-CI
+name: CI
 
 on: [push, pull_request]
 
@@ -23,11 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install dependencies
+        run: cd app && npm install
+
       - name: Install Truffle
         run: npm install -g truffle
         
       - name: Build
         run: npm run build
-
-      - name: Test
-        run: npm run test

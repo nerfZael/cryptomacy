@@ -10,7 +10,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "truffle test",
-    "build": "truffle compile"
+    "build": "npm run contracts && npm run react",
+    "contracts": "truffle compile",
+    "react": "cd app && npm run build"
   },
   "repository": {
     "type": "git",
