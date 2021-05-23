@@ -1,0 +1,27 @@
+{
+  "name": "cryptomacy",
+  "version": "0.0.1",
+  "description": "An Ethereum game inspired by Diplomacy.",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "truffle test",
+    "build": "npm run contracts && npm run react",
+    "contracts": "truffle compile",
+    "react": "cd app && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerfZael/cryptomacy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nerfZael/cryptomacy/issues"
+  },
+  "homepage": "https://github.com/nerfZael/cryptomacy#readme"
+}
