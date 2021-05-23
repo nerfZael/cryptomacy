@@ -1,0 +1,30 @@
+name: JS-CI
+
+on: [push, pull_request]
+
+jobs:
+  CI-Windows:
+    name: CI-Windows
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read .nvmrc
+        run: iex "echo '::set-output name=NVMRC::$(type .nvmrc)'"
+        id: nvm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test
